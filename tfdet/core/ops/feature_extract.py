@@ -62,7 +62,7 @@ def core_sampling(*args, n_sample = 3, n_feature = "auto", eps = 0.9, index = Fa
     if n_feature == "auto":
         b, c = np.shape(args[0])
         n_feature = max(min(johnson_lindenstrauss_min_dim(b, eps = eps), c), 1)
-    m = SparseRandomProjection(n_components = n_feature, eps = eps, seed = seed)
+    m = SparseRandomProjection(n_components = n_feature, eps = eps, random_state= = seed)
     trans_data = m.fit_transform(args[0])
     
     indices = []

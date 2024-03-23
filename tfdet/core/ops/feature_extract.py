@@ -50,7 +50,7 @@ def feature_extract(feature, sampling_index = None, pool_size = 1, sub_sampling 
         feature = feature[0]
     return feature
 
-def core_sampling(*args, n_sample = 3, n_feature = "auto", eps = 0.9, index = False):
+def core_sampling(*args, n_sample = 3, n_feature = "auto", eps = 0.9, index = False, seed = 0):
     try:
         from sklearn.random_projection import SparseRandomProjection, johnson_lindenstrauss_min_dim
     except Exception as e:
@@ -62,7 +62,7 @@ def core_sampling(*args, n_sample = 3, n_feature = "auto", eps = 0.9, index = Fa
     if n_feature == "auto":
         b, c = np.shape(args[0])
         n_feature = max(min(johnson_lindenstrauss_min_dim(b, eps = eps), c), 1)
-    m = SparseRandomProjection(n_components = n_feature, eps = eps)
+    m = SparseRandomProjection(n_components = n_feature, eps = eps, seed = seed)
     trans_data = m.fit_transform(args[0])
     
     indices = []
